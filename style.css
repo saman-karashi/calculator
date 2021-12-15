@@ -1,0 +1,73 @@
+@font-face {
+    font-family:calculator-font;
+    src: url(./TheCitadels-qVWq.ttf);
+}
+
+
+:root{
+--light-purple:#AB3BF9; 
+--light-gray:#E6E6E6; 
+}
+
+*,*::after,*::before{
+box-sizing: border-box;
+padding:0;
+margin: 0;
+}
+
+body{
+overflow-x: hidden;
+font-family:Arial, Helvetica, sans-serif;
+min-height: 100vh;
+display: grid;
+background-color: gainsboro;
+place-items:center;
+}
+
+.container{
+min-height:40rem;
+max-width: 330px;
+width: 100%;
+padding:0 1em;
+background-color: #fff;
+border-top: 1px solid transparent;
+}
+
+.container .header{
+margin-top: 8rem;
+text-align: right;
+}
+
+.container .header .input{
+border: none;
+width: 100%;
+direction: rtl;
+color: #333;
+font-size: 1.5rem;
+font-family: calculator-font;
+letter-spacing:2px;
+}
+
+.container .header .input:focus{
+outline: 0;
+}
+
+.container .header .span{
+font-size: 2rem;
+letter-spacing: 1px;
+display: block;
+margin-bottom: 1rem;
+}
+
+.container .calculator{
+margin-top:6rem;
+}
+
+.container .calculator > * {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin: 1em .5em;
+}
+
+

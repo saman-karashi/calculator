@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel='stylesheet' href="utilities.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="app.js"></script>
+    <title>Calculator</title>
+  </head>
+  <body>
+   <div class="container">
+     <div class='header mb-5'>
+       <span type='text' id='sum' class='span'></span>
+        <input class="input clr-light-purple" id='evaluation'>
+     </div>
+     <div class='calculator'>
+       <div>
+         <button class='btn clr-light-purple operator' data-clear="AC">AC</button>
+         <button class='btn operator' data-plus-minus="+/-">+/-</button>
+         <button class='btn operator' data-remainder="remainder">%</button>
+         <button class='operator btn bg-light-gray rounded p-5' data-division="division">÷</button>
+       </div>
+       <div>
+         <button class='btn number-key'>7</button>
+         <button class='btn number-key'>8</button>
+         <button class='btn number-key'>9</button>
+         <button class='operator pl-4 pr-4 btn bg-light-gray rounded p-5' data-multiply="x">x</button>
+       </div>
+       <div>
+         <button class='btn number-key'>4</button>
+         <button class='btn number-key'>5</button>
+         <button class='btn number-key'>6</button>
+         <button class='operator pl-5 pr-5 btn bg-light-gray rounded p-5' data-minus="-">-</button>
+       </div>
+       <div>
+         <button class='btn number-key'>1</button>
+         <button class='btn number-key'>2</button>
+         <button class='btn number-key'>3</button>
+         <button class='operator btn bg-light-gray rounded p-5' data-addition="+">+</button>
+       </div>
+       <div class='space-evenly'>
+         <button class='btn number-key'>0</button>
+         <button class='operator btn mr-5' data-dot=".">.</button>
+         <button class='operator btn bg-purple rounded white p-5' data-equal="=">=</button>
+       </div>
+     </div>
+   </div>
+  </body>
+</html>
