@@ -1,3 +1,32 @@
 1_ Get particular elements from the DOM
 
-2_ 
+2_ Make a function 
+
+3_ Loop over each array elements' key-number
+
+4_ Do an event listeners through all key-numbers btn
+
+5_ Make a variable for storing left and right operand
+
+6_ Loop over each array elements' operators
+
+7_ Do an event Listeners to each operators' button
+
+8_ Make a variable for storing operator sign
+
+9_ When dom is loaded input should be focused
+
+10_ Check if operator is empty then add number to the
+    left operand var else to the right operand
+
+11_ Check if there's any operand left then add operator sign
+    to the input
+
+12_ Operand values should be number for doing operation
+
+13_ Do operation on left operand and right operand 
+
+14_ Clear input when AC is clicked
+
+15_ For test : Make a variable for storing sum and 
+    then 
