@@ -12,29 +12,25 @@ let leftOperand = '',
 //Storing operator sign
 let operatorStore;
 
-//Storing sum
-let result=''
+//Storing sum value
+let result;
 
 //EventListeners
 const keyNumbersHandler = e => {
   //Check operatorStore value
   if (!operatorStore) {
     leftOperand += e.target.textContent;
-    evaluationEl.value = `${leftOperand}`;
   } else {
     rightOperand += e.target.textContent;
-    evaluationEl.value += `${rightOperand}`;
   }
 
+  leftOperand
+    ? (evaluationEl.value = leftOperand)
+    : rightOperand
+    ? (evaluationEl.value = rightOperand)
+    : null;
+
   calculate();
-};
-
-const operatorHandler = e => {
-  if (leftOperand) {
-    operatorStore = e.target.textContent;
-    evaluationEl.value += operatorStore;
-}
-
 };
 
 //Calculate function
@@ -45,20 +41,51 @@ function calculate() {
 
   switch (operatorStore) {
     case '+':
-      return toNumberLeftOperand + toNumberRightOperand;
+      return (result = toNumberLeftOperand + toNumberRightOperand);
       break;
     case 'x':
-        return toNumberLeftOperand * toNumberRightOperand;
+      return (result = toNumberLeftOperand * toNumberRightOperand);
+      break;
+    case '-':
+      return (result = toNumberLeftOperand - toNumberRightOperand);
+      break;
+    case '÷':
+      return (result = toNumberLeftOperand / toNumberRightOperand);
+      break;
+    case '%':
+      return (result = toNumberLeftOperand % toNumberRightOperand);
+      break;
     default:
       break;
   }
-console.log(leftOperand)
 }
+
+function equalHandler() {
+  if (operatorStore === '=') {
+    evaluationEl.value = '';
+  }
+}
+
+const operatorHandler = e => {
+  if (leftOperand) {
+    operatorStore = e.target.textContent;
+    evaluationEl.value = operatorStore;
+  }
+
+  if (result) {
+    sumEl.innerHTML = result;
+    leftOperand = result;
+    rightOperand = '';
+  }
+
+  equalHandler();
+};
 
 //DOM loaded focus on input
 window.addEventListener('DOMContentLoaded', () => {
   evaluationEl.focus();
   evaluationEl.value = '';
+  sumEl.innerHTML = '';
 });
 
 //Clear input and all variables
@@ -67,7 +94,8 @@ clearBtn.addEventListener('click', () => {
   leftOperand = '';
   rightOperand = '';
   operatorStore = '';
-  result=''
+  result = '';
+  sumEl.innerHTML = '';
 });
 
 // calculator func
