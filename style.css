@@ -22,11 +22,12 @@ min-height: 100vh;
 display: grid;
 background-color: gainsboro;
 place-items:center;
+padding:  1rem;
 }
 
 .container{
 min-height:40rem;
-max-width: 330px;
+max-width: 350px;
 width: 100%;
 padding:0 1em;
 background-color: #fff;
@@ -41,7 +42,7 @@ text-align: right;
 .container .header .input{
 border: none;
 width: 100%;
-direction: rtl;
+text-align: right;
 color: #333;
 font-size: 1.5rem;
 letter-spacing:2px;
@@ -52,8 +53,7 @@ outline: 0;
 }
 
 .container .header .span{
-font-size: 2rem;
-letter-spacing: 1px;
+font-size: 1.8rem;
 display: block;
 margin-bottom: 1rem;
 }
