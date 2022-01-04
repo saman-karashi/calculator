@@ -3,7 +3,7 @@ const evaluationEl = document.getElementById('evaluation'),
   sumEl = document.getElementById('sum'),
   operatorsEl = document.querySelectorAll('.operator'),
   equalEl = document.querySelector('.equal'),
-  dotEL = document.querySelector('.dot'),
+  decimalEL = document.querySelector('.decimal'),
   plusMinusEl = document.querySelector('.plus-minus'),
   numbersKeyEl = document.querySelectorAll('.number-key'),
   clearBtn = document.querySelector('.clear');
@@ -20,6 +20,16 @@ let result;
 
 let index = -1;
 
+function checkResult() {
+  if (result) {
+    if (result == Infinity) return divisionHandler();
+    leftOperand = result;
+    sumEl.innerHTML = result;
+    evaluationEl.value = leftOperand + operatorStore;
+    rightOperand = '';
+  }
+}
+
 //Event Listeners
 function eventListeners() {
   //Loop over key-numbers
@@ -34,8 +44,8 @@ function eventListeners() {
   //Equal eventHandler
   equalEl.addEventListener('click', equalHandler);
 
-  //PlusMinus eventHandler
-  plusMinusEl.addEventListener('click', plusMinusHandler);
+  //Decimal eventHandler
+  decimalEL.addEventListener('click', decimalHandler);
 
   //DOM loaded focus on input
   window.addEventListener('DOMContentLoaded', () => {
@@ -52,7 +62,6 @@ function eventListeners() {
     operatorStore = '';
     result = '';
     sumEl.innerHTML = '';
-    index = -1;
   });
 }
 
@@ -83,34 +92,32 @@ function calculate() {
 function keyNumbersHandler(e) {
   //Check operatorStore value
   if (!operatorStore) {
-    leftOperand += e.target.textContent;
-    evaluationEl.value += e.target.textContent;
+    leftOperand += e.target.innerText;
+    evaluationEl.value += e.target.innerText;
   } else {
-    rightOperand += e.target.textContent;
-    evaluationEl.value += e.target.textContent;
+    rightOperand += e.target.innerText;
+    evaluationEl.value += e.target.innerText;
   }
 
+  index = -1;
   calculate();
 }
 
 //Operator event handler
 function operatorHandler(e) {
-  if (leftOperand) {
-    operatorStore = e.target.textContent;
-    evaluationEl.value = leftOperand + operatorStore;
+  index++;
+  if (leftOperand && index === 0) {
+    operatorStore = e.target.innerText;
+    evaluationEl.value += operatorStore;
   }
 
-  if (result) {
-    if (result == Infinity) return divisionHandler();
-    sumEl.innerHTML = result;
-    leftOperand = result;
-    evaluationEl.value = leftOperand + operatorStore;
-    rightOperand = '';
-  }
+  checkResult();
 }
 
 //Equal handler
 function equalHandler() {
+  evaluationEl.value = result + operatorStore;
+  checkResult();
   result ? (sumEl.innerHTML = result) : (sumEl.innerHTML = '');
   divisionHandler();
 }
@@ -121,11 +128,14 @@ function divisionHandler() {
   }
 }
 
-function plusMinusHandler() {
-  if (leftOperand && !operatorStore) {
-    leftOperand = '-'.concat(leftOperand);
-  } else if (rightOperand && operatorStore) {
-    rightOperand = '-'.concat(rightOperand);
+//Decimal handler
+function decimalHandler(e) { 
+    if (!operatorStore && leftOperand.indexOf('.') < 0) {
+    leftOperand += '.';
+    evaluationEl.value += '.';
+  } else if (operatorStore && rightOperand.indexOf('.') < 0) {
+    rightOperand += '.';
+    evaluationEl.value += '.';
   }
 
 }
