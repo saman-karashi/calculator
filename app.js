@@ -1,3 +1,4 @@
+'use strict';
 //Get elements from the DOM;
 const evaluationEl = document.getElementById('evaluation'),
   sumEl = document.getElementById('sum'),
@@ -25,9 +26,12 @@ function checkResult() {
     if (result == Infinity) return divisionHandler();
     leftOperand = result;
     sumEl.innerHTML = result;
-    evaluationEl.value = leftOperand + operatorStore;
+    evaluationEl.value = result;
     rightOperand = '';
+    operatorStore = '';
   }
+
+  result = '';
 }
 
 //Event Listeners
@@ -46,6 +50,9 @@ function eventListeners() {
 
   //Decimal eventHandler
   decimalEL.addEventListener('click', decimalHandler);
+
+  //Input key handler
+  evaluationEl.addEventListener('keydown', inputKeyHandler);
 
   //DOM loaded focus on input
   window.addEventListener('DOMContentLoaded', () => {
@@ -67,6 +74,10 @@ function eventListeners() {
 
 eventListeners();
 
+function inputKeyHandler(event) {
+  event.preventDefault();
+}
+
 //Calculate function
 function calculate() {
   const toNumberLeftOperand = Number(leftOperand);
@@ -85,11 +96,17 @@ function calculate() {
     case '÷':
       return (result = toNumberLeftOperand / toNumberRightOperand);
       break;
+    case '%':
+      return (result = toNumberLeftOperand % toNumberRightOperand);
+      break;
   }
 }
 
 //Number event handler
 function keyNumbersHandler(e) {
+  //Limit character of input
+  if (evaluationEl.value.length === 16) return;
+
   //Check operatorStore value
   if (!operatorStore) {
     leftOperand += e.target.innerText;
@@ -101,24 +118,22 @@ function keyNumbersHandler(e) {
 
   index = -1;
   calculate();
+
 }
 
 //Operator event handler
 function operatorHandler(e) {
-  index++;
-  if (leftOperand && index === 0) {
+  if (leftOperand) {
     operatorStore = e.target.innerText;
-    evaluationEl.value += operatorStore;
+    evaluationEl.value = leftOperand + operatorStore;
   }
-
+  
   checkResult();
 }
 
 //Equal handler
 function equalHandler() {
-  evaluationEl.value = result + operatorStore;
   checkResult();
-  result ? (sumEl.innerHTML = result) : (sumEl.innerHTML = '');
   divisionHandler();
 }
 
@@ -129,13 +144,13 @@ function divisionHandler() {
 }
 
 //Decimal handler
-function decimalHandler(e) { 
-    if (!operatorStore && leftOperand.indexOf('.') < 0) {
+function decimalHandler() {
+  if(!operatorStore && leftOperand.indexOf('.') < 0) {
     leftOperand += '.';
     evaluationEl.value += '.';
-  } else if (operatorStore && rightOperand.indexOf('.') < 0) {
+  } else if(operatorStore && rightOperand.indexOf('.') < 0) {
     rightOperand += '.';
-    evaluationEl.value += '.';
+    evaluationEl.value+='.'
   }
-
 }
+
